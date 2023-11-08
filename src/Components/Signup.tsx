@@ -1,17 +1,64 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { MdCancel } from "react-icons/md"
 import { useDispatch } from 'react-redux';
-import { ChangeModal } from '../Services/Reducers';
+import { ChangeLogin, ChangeModal } from '../Services/Reducers';
+import { RegUser } from '../Services/apiFiles/ApiCalls';
+import { useForm } from "react-hook-form"
 
 
+
+interface Validation{
+    FullName: string,
+    Email: string
+    Password:string
+}
 const Signup = () => {
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            FullName: "",
+            Email: '',
+            Password:''
+        }
+    })
+    console.log(errors)
+    const createUser = handleSubmit(async (data:Validation) => {
+        try {
+            const {FullName,Email,Password}:any=data
+            const Response = await RegUser({
+                FullName,
+                Email,
+                Password
+                
+            }) 
+          if (Response.status === 201) {
+            dispatch(ChangeModal())
+            dispatch(ChangeLogin())
+          }
+        
+          
+
+        
+     
+        
+           
+            return Response
+        } catch (error:any) {
+            console.log(error.message)
+            
+        }
+      
+    })
+    
   return (
     <div className="h-screen w-full fixed  top-0 left-0 right-0 bg-black bg-opacity-40 flex items-center justify-center   ">
       <div className="shadow-md   h-[90vh] w-[90%] bg-white flex justify-center items-center rounded-lg relative">
-              <div onClick={() => {
-                  dispatch(ChangeModal())
-        }} className="fixed top-[50px] text-2xl right-24 text-black cursor-pointer">
+        <div
+          onClick={() => {
+            dispatch(ChangeModal());
+          }}
+          className="fixed top-[50px] text-2xl right-24 text-black cursor-pointer"
+        >
           <MdCancel />
         </div>
 
@@ -22,7 +69,15 @@ const Signup = () => {
                 Register Account
               </h1>
               {/*  */}
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form className="space-y-4 md:space-y-6" onSubmit={async(e) => {
+                e.preventDefault()
+              createUser();
+            
+             
+              
+              
+                
+              }}>
                 <div>
                   <label
                     htmlFor="FullName"
@@ -31,29 +86,37 @@ const Signup = () => {
                     FullName
                   </label>
                   <input
+                    {...register("FullName", {
+                      required: "This field is required",
+                    })}
                     type="text"
                     name="FullName"
                     id="FullName"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-500"
-                    placeholder="name@company.com"
+                    placeholder="Enter FullName"
                     required
                   />
+                  <p className="text-red-700">{errors.FullName?.message}</p>
                 </div>
                 <div>
                   <label
-                    htmlFor="email"
+                    htmlFor="Email"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Email
                   </label>
                   <input
-                    type="email"
-                    name="email"
-                    id="email"
+                    {...register("Email", {
+                      required: "This field is required",
+                    })}
+                    type="Email"
+                    name="Email"
+                    id="Email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-500"
-                    placeholder="name@company.com"
+                    placeholder="Enter Email"
                     required
                   />
+                  <p className="text-red-700">{errors.Email?.message}</p>
                 </div>
                 <div className="flex w-full justify-between">
                   <div>
@@ -64,13 +127,17 @@ const Signup = () => {
                       Password
                     </label>
                     <input
-                      type="password"
-                      name="password"
-                      id="password"
+                      {...register("Password", {
+                        required: "This field is required",
+                      })}
+                      type="Password"
+                      name="Password"
+                      id="Password"
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-500 block w-[100%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-500"
                       required
                     />
+                    <p className="text-red-500"> {errors.Password?.message}</p>
                   </div>
                   <div>
                     <label
@@ -89,11 +156,11 @@ const Signup = () => {
                     />
                   </div>
                 </div>
-                <div className="flex items-start">
+                <div className="flex items-start "> 
                   <div className="flex items-center h-5">
                     <input
                       id="terms"
-                      aria-describedby="terms"
+                 
                       type="checkbox"
                       className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                       required
@@ -114,7 +181,7 @@ const Signup = () => {
                     </label>
                   </div>
                 </div>
-                <button
+                <button 
                   type="submit"
                   className="w-full text-white bg-sky-500 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-500 dark:hover:bg-sky-500 dark:focus:ring-sky-500"
                 >
@@ -122,12 +189,15 @@ const Signup = () => {
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Already have an account?{" "}
-                  <a
-                    href="#"
-                    className="font-medium text-sky-500 hover:underline dark:text-sky-500"
+                  <span 
+                    onClick={() => {
+                      dispatch(ChangeModal())
+                      dispatch(ChangeLogin())
+                   }}
+                    className="font-medium text-sky-500 cursor-pointer dark:text-sky-500"
                   >
                     Login here
-                  </a>
+                  </span>
                 </p>
               </form>
             </div>
