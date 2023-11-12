@@ -1,17 +1,14 @@
-import React, { useState } from "react"
+
 import DashHeader from "../Pages/Blocks/DashHeader"
 import SideBar from "../Pages/Blocks/SideBar"
-import {useForm} from "react-hook-form"
-import { createCategory } from "../Services/apiFiles/ApiCalls"
-import {toast} from "react-toastify"
-import AddCategory from "../Components/AddCategory"
+
 import AddProducts from "../Components/AddProducts"
 
 
 
-interface Data{
-    Name:string
-}
+// interface Data{
+//     Name:string
+// }
 
 const WebLayout = () => {
 //     const {

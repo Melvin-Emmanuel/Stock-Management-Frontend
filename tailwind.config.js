@@ -70,7 +70,5 @@ export default {
         "Noto Color Emoji",
       ],
     },
-  },
-
-  plugins: [require("flowbite/plugin")],
+  }
 }

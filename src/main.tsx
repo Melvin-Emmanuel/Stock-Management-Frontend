@@ -12,10 +12,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer />
-      <RouterProvider router={Index}>
+      <RouterProvider router={Index}/>
         {/* <App />
         <WebLayout /> */}
-      </RouterProvider>
+      
     </Provider>
   </React.StrictMode>
 );

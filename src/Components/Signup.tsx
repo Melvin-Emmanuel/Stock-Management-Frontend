@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+
 import { MdCancel } from "react-icons/md"
 import { useDispatch } from 'react-redux';
 import { ChangeLogin, ChangeModal } from '../Services/Reducers';

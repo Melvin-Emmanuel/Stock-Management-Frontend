@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
+import {  useSelector } from "react-redux";
 
 
 import Header from "./Commons/Header";
 import pic from "../assets/New_entries-amico-removebg-preview.png";
 import Login from "../Components/Login";
 import Signup from "../Components/Signup";
-import { RegUser, TestApi } from "../Services/apiFiles/ApiCalls";
+
 
 const Homepage = () => {
   const ismodal = useSelector((state:any) => state.modal);

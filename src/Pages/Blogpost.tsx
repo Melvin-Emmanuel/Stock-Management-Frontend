@@ -1,4 +1,4 @@
-import React from "react";
+
 import BLogCover from "../assets/portrait-adult-male-disinfecting-house_23-2148563573 1.png";
 import CardImage from "../assets/cardImage1.jpeg";
 import styled from "@emotion/styled";

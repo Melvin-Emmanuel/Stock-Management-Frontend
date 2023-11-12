@@ -1,4 +1,4 @@
-import React from 'react'
+
 import BLogCover from "../assets/portrait-adult-male-disinfecting-house_23-2148563573 1.png"
 
 const Contact = () => {
