@@ -3,7 +3,7 @@ import Homepage from "../Pages/Homepage";
 
 import WebLayout from "../Layout/WebLayout";
 import Blogpost from "../Pages/Blogpost";
-import Contact from "../Pages/Contact";
+// import Contact from "../Pages/Contact";
 
 
 const Index = createBrowserRouter([
@@ -19,10 +19,11 @@ const Index = createBrowserRouter([
     path: "/blogpost",
     element:<Blogpost/>
   },
-  {
-    path: "/contactus",
-    element:<Contact/>
-  }
+  // {
+  //   path: "/contactus",
+  //   element:<Contact/>
+  // },
+  
 ])
 
 export default Index
